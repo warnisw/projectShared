@@ -56,7 +56,7 @@ const NewAlbum = () => {
 
   return (
     <Segment>
-      <Header as='h3'>Add a new album</Header>
+      <Header as='h3'>Add a new Game</Header>
       <Input
         type='text'
         placeholder='New Album Name'
