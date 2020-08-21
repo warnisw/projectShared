@@ -111,7 +111,7 @@ const AlbumsList = () => {
 
   return (
     <Segment>
-      <Header as='h3'>My Albums</Header>
+      <Header as='h3'>Select game</Header>
       <List divided relaxed>
         {albumItems()}
       </List>
