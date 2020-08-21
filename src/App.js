@@ -110,12 +110,13 @@ const AlbumsList = () => {
   }
 
   return (
-    <Segment>
+    
+    <div className="game"> add me
       <Header as='h3'>Select game</Header>
       <List divided relaxed>
         {albumItems()}
-      </List>
-    </Segment>
+      </List>      
+      </div>
   );
 }
 
@@ -173,9 +174,10 @@ const AlbumDetails = (props) => {
     setHasMorePhotos(results.data.listPhotosByAlbum.items.length === FETCH_LIMIT)
     setFetchingPhotos(false)
   }
-
+///modify game here
   return (
     <Segment>
+      <div className="game"> add me</div>
       <Header as='h3'>{album.name}</Header>
       <S3ImageUpload albumId={album.id} />
       <PhotosList photos={photos} />
@@ -314,10 +316,9 @@ function App() {
   return (
     <Router>
       <Grid padded>
-        <Grid.Column>
+        <Grid.Row>
           <Route path="/" exact component={NewAlbum}/>
           <Route path="/" exact component={AlbumsList}/>
-          <Route path="/" exact component={Search}/>
 
           <Route
             path="/albums/:albumId"
@@ -327,7 +328,7 @@ function App() {
           <Route
             path="/albums/:albumId"
             render={props => <AlbumDetails id={props.match.params.albumId}/>}/>
-        </Grid.Column>
+        </Grid.Row>
       </Grid>
     </Router>
   )

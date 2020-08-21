@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.game {
+  align-items: center;
+  color: black;
+  font-size: xx-small;
+}
