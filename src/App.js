@@ -4,7 +4,7 @@ import Amplify, {Auth} from 'aws-amplify'
 import API, {graphqlOperation} from '@aws-amplify/api'
 import Storage from '@aws-amplify/storage'
 import aws_exports from './aws-exports'
-
+import Cat from "./test.js";
 import {S3Image, withAuthenticator} from 'aws-amplify-react'
 import {Divider, Form, Grid, Header, Input, List, Segment} from 'semantic-ui-react'
 
@@ -17,6 +17,7 @@ import * as mutations from './graphql/mutations'
 import * as subscriptions from './graphql/subscriptions'
 
 Amplify.configure(aws_exports);
+
 
 function makeComparator(key, order = 'asc') {
   return (a, b) => {
@@ -68,7 +69,7 @@ const NewAlbum = () => {
       }}
         name='name'
         value={name}
-        onChange={(e) => setName(e.target.value)}/>
+        onChange={(e) => setName(e.target.value)}/>       
     </Segment>
   )
 }
@@ -112,6 +113,7 @@ const AlbumsList = () => {
   return (
     
     <div className="game"> add me
+     <Cat name="tester" style={{color:'blue'}}></Cat>
       <Header as='h3'>Select game</Header>
       <List divided relaxed>
         {albumItems()}
