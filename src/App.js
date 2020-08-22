@@ -291,13 +291,14 @@ function App() {
   return (
           <HashRouter>
         <div>
-          <h1>Simple SPA</h1>
+          <h1>Beat Me</h1>
           <ul className="header">
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/stuff">Stuff</NavLink></li>
             <li><NavLink to="/aboutGame ">aboutGame </NavLink></li>
             <li><NavLink to="/NewAlbum">NewAlbum</NavLink></li>
             <li><NavLink to="/AlbumsList">AlbumsList</NavLink></li>
+          <li><NavLink to="/demoGame">DemoGame</NavLink></li>
           </ul>
           <div className="content">
             <Route path="/" component={withAuthenticator}/>
@@ -305,6 +306,7 @@ function App() {
             <Route path="/aboutGame " component={aboutGame }/>
             <Route path="/NewAlbum" component={NewAlbum}/>
             <Route path="/AlbumsList" component={AlbumsList}/>
+            <Route path="/demoGame" component={demoGame}/>
           </div>
         </div>
           <Route
