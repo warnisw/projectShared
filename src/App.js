@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-
+import {default as Blur} from 'react-blur';
+import beatme from './images/beatme.png';
 import Amplify, {Auth} from 'aws-amplify'
 import API, {graphqlOperation} from '@aws-amplify/api'
 import Storage from '@aws-amplify/storage'
@@ -122,7 +123,7 @@ const AlbumsList = () => {
   );
 }
 
-const AlbumDetails = (props) => {
+const AlbumDetails = (props) => {  
   const [album, setAlbum] = useState({name: 'Loading...', photos: []})
   const [photos, setPhotos] = useState([])
   const [hasMorePhotos, setHasMorePhotos] = useState(true)
@@ -178,7 +179,12 @@ const AlbumDetails = (props) => {
   }
 ///modify game here
   return (
+    
     <Segment>
+      <img src={beatme}/>   
+      <Blur className='blur-demo' img={beatme} blurRadius={5}>
+                    BLUR RADIUS: {5}px
+                </Blur>
       <div className="game"> add me</div>
       <Header as='h3'>{album.name}</Header>
       <S3ImageUpload albumId={album.id} />
