@@ -1,15 +1,24 @@
 import React, {useState, useEffect} from 'react';
+import {
+  Route,
+  NavLink,
+  HashRouter
+} from "react-router-dom";
 import {default as Blur} from 'react-blur';
-import beatme from './images/beatme.png';
+import beatme from './images/beatme.png'; 
 import Amplify, {Auth} from 'aws-amplify'
 import API, {graphqlOperation} from '@aws-amplify/api'
 import Storage from '@aws-amplify/storage'
 import aws_exports from './aws-exports'
 import Cat from "./test.js";
+import demoGame from "./demoGame.js";
+
+import Stuff from "./stuff";
+import aboutGame  from "./aboutGame.js";
 import {S3Image, withAuthenticator} from 'aws-amplify-react'
 import {Divider, Form, Grid, Header, Input, List, Segment} from 'semantic-ui-react'
 
-import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+//import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
 
 import {v4 as uuid} from 'uuid';
 
@@ -261,73 +270,43 @@ const PhotosList = React.memo((props) => {
     return props.photos.map(photo =>
       <S3Image 
         key={photo.thumbnail.key} 
-        imgKey={'resized/' + photo.thumbnail.key.replace(/.+resized\//, '')}
+        imgKey={'fullsize/' + photo.thumbnail.key.replace(/.+resized\//, '')}
         level="private"
         style={{display: 'inline-block', 'paddingRight': '5px'}}
       />
     );
   }
-
+console.log(props.photos);
   return (
     <div>
       <Divider hidden />
       <PhotoItems photos={props.photos} />
+      <Blur className='blur-demo' img={beatme} blurRadius={5}> </Blur>
     </div>
   );
 })
 
 
-const Search = () => {
-  const [photos, setPhotos] = useState([])
-  const [label, setLabel] = useState('')
-  const [hasResults, setHasResults] = useState(false)
-  const [searched, setSearched] = useState(false)
-
-  const getPhotosForLabel = async (e) => {
-      setPhotos([])
-      const result = await API.graphql(graphqlOperation(queries.searchPhotos, { filter: { labels: { match: label }} }));
-      if (result.data.searchPhotos.items.length !== 0) {
-          setHasResults(result.data.searchPhotos.items.length > 0)
-          setPhotos(p => p.concat(result.data.searchPhotos.items))
-      }
-      setSearched(true)
-  }
-
-  const NoResults = () => {
-    return !searched
-      ? ''
-      : <Header as='h4' color='grey'>No photos found matching '{label}'</Header>
-  }
-
-  return (
-      <Segment>
-        <Input
-          type='text'
-          placeholder='Search for photos'
-          icon='search'
-          iconPosition='left'
-          action={{ content: 'Search', onClick: getPhotosForLabel }}
-          name='label'
-          value={label}
-          onChange={(e) => { setLabel(e.target.value); setSearched(false);} }
-        />
-        {
-            hasResults
-            ? <PhotosList photos={photos} />
-            : <NoResults />
-        }
-      </Segment>
-  );
-}
-
 function App() {
   return (
-    <Router>
-      <Grid padded>
-        <Grid.Row>
-          <Route path="/" exact component={NewAlbum}/>
-          <Route path="/" exact component={AlbumsList}/>
-
+          <HashRouter>
+        <div>
+          <h1>Simple SPA</h1>
+          <ul className="header">
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/stuff">Stuff</NavLink></li>
+            <li><NavLink to="/aboutGame ">aboutGame </NavLink></li>
+            <li><NavLink to="/NewAlbum">NewAlbum</NavLink></li>
+            <li><NavLink to="/AlbumsList">AlbumsList</NavLink></li>
+          </ul>
+          <div className="content">
+            <Route path="/" component={withAuthenticator}/>
+            <Route path="/stuff" component={Stuff}/>
+            <Route path="/aboutGame " component={aboutGame }/>
+            <Route path="/NewAlbum" component={NewAlbum}/>
+            <Route path="/AlbumsList" component={AlbumsList}/>
+          </div>
+        </div>
           <Route
             path="/albums/:albumId"
             render={() => <div>
@@ -336,9 +315,8 @@ function App() {
           <Route
             path="/albums/:albumId"
             render={props => <AlbumDetails id={props.match.params.albumId}/>}/>
-        </Grid.Row>
-      </Grid>
-    </Router>
+      </HashRouter>
+
   )
 }
 
