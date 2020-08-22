@@ -3,40 +3,41 @@ import bird from './images/bird.jpg';
 import {default as Blur} from 'react-blur';
 
 export default class demoGame extends React.Component {
-    constructor(props) {
-      super(props);  
+    constructor() {
+      super();  
       this.state = {
         l1: '',
         l2: '',
         l3: ''
-      }  
-      this.handleEL1 = this.handleEL1.bind(this);
-      this.handleEL2 = this.handleEL2.bind(this);
-      this.handleEL3 = this.handleEL3.bind(this);      
+      };
+      this.handleChange = this.handleChange.bind(this);      
     }  
-    handleEL1 (evt) {
+    handleChange (evt) {
+      let nam = evt.target.name;
+      let val = evt.target.value;
+      let err = '';      
+      if (nam === "l1" | nam === "l2" | nam === "l3") {
+        if ( !val.match(/[a-z]/i)) {
+          err = <strong>Must be a letter</strong>;
+        }
+      }
+      this.setState({errormessage: err});
+      // and use it to target the key on our `state` object with the same name, using bracket syntax
+      this.setState({ [evt.target.name]: evt.target.value });
    
-      this.setState({ l1: evt.target.value });
     }
-    handleEL2 (evt) {
+  
       //if (l2.length === 1 && l1.match(/[a-z]/i) {
-       // alert("errror");
-      //}
-      this.setState({ l2: evt.target.value });
-    }
-    handleEL3 (evt) {
-      //if (l3.length === 1 && l1.match(/[a-z]/i) {
-      //  alert("errror");
-     // }
-      this.setState({ l3: evt.target.value });
-    }
+    
+  
 
   displayimage(){
     return <img src={bird} alt="Bird" />;
   }
     render() {
+      
       this.password = true;
-        console.log(this.password)
+        
       return(
         <div className="outer">
           <h1 style={this.props.style}>Demo Game</h1>          
@@ -52,12 +53,13 @@ export default class demoGame extends React.Component {
           <div class="bg-img">
           <form>
       
+          <label>_</label>    
+          <input type="text" name="l1" onChange={this.handleChange}  maxLength="1" />
+          {this.state.errormessage}          
           <label>_</label>
-          <input type="text" name="l1" onChange={this.handleEL1} />          
+          <input type="text" name="l2" onChange={this.handleChange} />
           <label>_</label>
-          <input type="text" name="l2" onChange={this.handleEL2} />
-          <label>_</label>
-          <input type="text" name="l3" onChange={this.handleEL3} />
+          <input type="text" name="l3" onChange={this.handleChange} />
           
           
         </form>
