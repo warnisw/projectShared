@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import bird from './images/bird.jpg';
+import bird2 from './images/bird2.jpg';
+import './demoGame.css';
 import {default as Blur} from 'react-blur';
 
 export default class demoGame extends React.Component {
@@ -8,10 +10,18 @@ export default class demoGame extends React.Component {
       this.state = {
         l1: '',
         l2: '',
-        l3: ''
+        l3: '',
+        password: false,
+        img: bird,     
       };
       this.handleChange = this.handleChange.bind(this);      
     }  
+    toggleImage = (id) => {
+      this.setState(state => ({ img: id }));
+      this.setState(state => ({ width: 350 }))
+    }
+  
+    getImageName = () => this.state.img ? 'bird' : 'bird2'
     handleChange (evt) {
       let nam = evt.target.name;
       let val = evt.target.value;
@@ -24,49 +34,42 @@ export default class demoGame extends React.Component {
       this.setState({errormessage: err});
       // and use it to target the key on our `state` object with the same name, using bracket syntax
       this.setState({ [evt.target.name]: evt.target.value });
-   
-    }
-  
-      //if (l2.length === 1 && l1.match(/[a-z]/i) {
-    
-  
-
-  displayimage(){
-    return <img src={bird} alt="Bird" />;
-  }
-    render() {
-      
-      this.password = true;
-        
+      if (this.state.l1 === "a" && this.state.l2 === "a" &&this.state.l3 === "a") {    
+        this.setState({ password: true });
+      }
+    }  
+ 
+    render() {  
+       console.log(this.state.img) 
       return(
         <div className="outer">
-          <h1 style={this.props.style}>Demo Game</h1>          
-          
+          <h1 style={this.props.style}>Demo Game</h1>
           <p>
             Enter 3 letters to unlock image
           </p> 
-          <div className="progress" style={{width: 300}} onClick={this.displayimage} >
-          <Blur className='' img={bird} blurRadius={20} > </Blur>
-          
-          {this.password ? <img src={bird} alt="Bird" /> : null}
-          </div>  
+          <div className="progress" style={{width: this.state.width}} onClick={(e) => this.toggleImage(bird, e)} >
+          {this.state.img == bird ? "selected" : null}  
+            <Blur className='' img={bird} blurRadius={20} > </Blur> 
+          </div>
+          <div className="progress" style={{width: 300}} onClick={(e) => this.toggleImage(bird2, e)} >
+          {this.state.img == bird2 ? "selected" : null}  
+            <Blur className='' img={bird2} blurRadius={20} > </Blur> 
+          </div>
+          {this.state.password ? <img src={this.state.img} alt="Bird" /> : null}             
           <div class="bg-img">
-          <form>
-      
-          <label>_</label>    
-          <input type="text" name="l1" onChange={this.handleChange}  maxLength="1" />
-          {this.state.errormessage}          
-          <label>_</label>
-          <input type="text" name="l2" onChange={this.handleChange} />
-          <label>_</label>
-          <input type="text" name="l3" onChange={this.handleChange} />
-          
-          
-        </form>
+            <form>      
+            <label></label>    
+              <input type="text" name="l1" placeholder="_" onChange={this.handleChange}  maxLength="1" />
+             {this.state.errormessage}          
+            <label></label>
+              <input type="text" name="l2" placeholder="_" onChange={this.handleChange} maxLength="1" />
+            <label></label>
+              <input type="text" name="l3" placeholder="_" onChange={this.handleChange} maxLength="1"/>
+            <button type="" class="btn">Refresh</button>          
+        </form> 
+       
           </div> 
-        </div>
-    
-
+        </div> 
       );
     }
   }

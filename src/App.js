@@ -11,9 +11,10 @@ import API, {graphqlOperation} from '@aws-amplify/api'
 import Storage from '@aws-amplify/storage'
 import aws_exports from './aws-exports'
 import Cat from "./test.js";
+import home from "./home.js";
 import demoGame from "./demoGame.js";
 
-import Stuff from "./stuff";
+import info from "./info";
 import aboutGame  from "./aboutGame.js";
 import {S3Image, withAuthenticator} from 'aws-amplify-react'
 import {Divider, Form, Grid, Header, Input, List, Segment} from 'semantic-ui-react'
@@ -294,7 +295,7 @@ function App() {
           <h1>Beat Me</h1>
           <ul className="header">
             <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/stuff">Stuff</NavLink></li>
+            <li><NavLink to="/info">Info</NavLink></li>
             <li><NavLink to="/aboutGame ">aboutGame </NavLink></li>
             <li><NavLink to="/NewAlbum">NewAlbum</NavLink></li>
             <li><NavLink to="/AlbumsList">AlbumsList</NavLink></li>
@@ -302,11 +303,12 @@ function App() {
           </ul>
           <div className="content">
             <Route path="/" component={withAuthenticator}/>
-            <Route path="/stuff" component={Stuff}/>
+            <Route path="/info" component={info}/>
             <Route path="/aboutGame " component={aboutGame }/>
             <Route path="/NewAlbum" component={NewAlbum}/>
             <Route path="/AlbumsList" component={AlbumsList}/>
             <Route path="/demoGame" component={demoGame}/>
+            <Route path="/" component={home}/>
           </div>
         </div>
           <Route
