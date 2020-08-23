@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import bird from './images/bird.jpg';
 import bird2 from './images/bird2.jpg';
+import { password } from './setPassword.js';
 import './demoGame.css';
 import {default as Blur} from 'react-blur';
 
@@ -17,8 +18,7 @@ export default class demoGame extends React.Component {
       this.handleChange = this.handleChange.bind(this);      
     }  
     toggleImage = (id) => {
-      this.setState(state => ({ img: id }));
-      this.setState(state => ({ width: 350 }))
+      this.setState(state => ({ img: id }));  
     }
   
     getImageName = () => this.state.img ? 'bird' : 'bird2'
@@ -39,15 +39,15 @@ export default class demoGame extends React.Component {
       }
     }  
  
-    render() {  
-       console.log(this.state.img) 
+    render() {
+
       return(
         <div className="outer">
           <h1 style={this.props.style}>Demo Game</h1>
           <p>
             Enter 3 letters to unlock image
           </p> 
-          <div className="progress" style={{width: this.state.width}} onClick={(e) => this.toggleImage(bird, e)} >
+          <div className="progress" style={{width: 300}} onClick={(e) => this.toggleImage(bird, e)} >
           {this.state.img == bird ? "selected" : null}  
             <Blur className='' img={bird} blurRadius={20} > </Blur> 
           </div>

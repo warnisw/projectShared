@@ -10,10 +10,10 @@ import Amplify, {Auth} from 'aws-amplify'
 import API, {graphqlOperation} from '@aws-amplify/api'
 import Storage from '@aws-amplify/storage'
 import aws_exports from './aws-exports'
-import Cat from "./test.js";
+import Cat from "./setPassword.js";
 import home from "./home.js";
 import demoGame from "./demoGame.js";
-
+import setPassword from "./setPassword.js";
 import info from "./info";
 import aboutGame  from "./aboutGame.js";
 import {S3Image, withAuthenticator} from 'aws-amplify-react'
@@ -28,7 +28,6 @@ import * as mutations from './graphql/mutations'
 import * as subscriptions from './graphql/subscriptions'
 
 Amplify.configure(aws_exports);
-
 
 function makeComparator(key, order = 'asc') {
   return (a, b) => {
@@ -58,6 +57,8 @@ const NewAlbum = () => {
   const [name,
     setName] = useState('')
 
+
+
   const handleSubmit = async(event) => {
     event.preventDefault();
     await API.graphql(graphqlOperation(mutations.createAlbum, {input: {
@@ -65,6 +66,7 @@ const NewAlbum = () => {
       }}))
     setName('')
   }
+
 
   return (
     <Segment>
@@ -80,7 +82,8 @@ const NewAlbum = () => {
       }}
         name='name'
         value={name}
-        onChange={(e) => setName(e.target.value)}/>       
+        onChange={(e) => setName(e.target.value)}/>
+         
     </Segment>
   )
 }
@@ -123,8 +126,7 @@ const AlbumsList = () => {
 
   return (
     
-    <div className="game"> add me
-     <Cat name="tester" style={{color:'blue'}}></Cat>
+    <div className="game"> add me   
       <Header as='h3'>Select game</Header>
       <List divided relaxed>
         {albumItems()}
@@ -296,10 +298,11 @@ function App() {
           <ul className="header">
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/info">Info</NavLink></li>
-            <li><NavLink to="/aboutGame ">aboutGame </NavLink></li>
+            <li><NavLink to="/aboutGame ">about Game </NavLink></li>
             <li><NavLink to="/NewAlbum">NewAlbum</NavLink></li>
             <li><NavLink to="/AlbumsList">AlbumsList</NavLink></li>
           <li><NavLink to="/demoGame">DemoGame</NavLink></li>
+          <li><NavLink to="/setPassword">Set Paswword</NavLink></li>
           </ul>
           <div className="content">
             <Route path="/" component={withAuthenticator}/>
@@ -308,6 +311,7 @@ function App() {
             <Route path="/NewAlbum" component={NewAlbum}/>
             <Route path="/AlbumsList" component={AlbumsList}/>
             <Route path="/demoGame" component={demoGame}/>
+            <Route path="/setPassword" component={setPassword}/>
             <Route path="/" component={home}/>
           </div>
         </div>
