@@ -34,13 +34,13 @@ export default class demoGame extends React.Component {
       this.setState({errormessage: err});
       // and use it to target the key on our `state` object with the same name, using bracket syntax
       this.setState({ [evt.target.name]: evt.target.value });
-      if (this.state.l1 === "a" && this.state.l2 === "a" &&this.state.l3 === "a") {    
+      if (this.state.l1 === password[0] && this.state.l2 === password[1] &&this.state.l3 === password[2]) {    
         this.setState({ password: true });
       }
+     
     }  
  
-    render() {
-
+    render() {   
       return(
         <div className="outer">
           <h1 style={this.props.style}>Demo Game</h1>
