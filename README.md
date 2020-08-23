@@ -2,6 +2,7 @@ Project made by Arnis Vasilenoks
 React based app with servelesss backand.
 This app lets users to register, login and uplaod pictures with password attached. Others users can unclok images by enterring correct password.
 
+<img src=“https://github.com/warnisw/projectShared/blob/master/public/big%20image.png?raw=true>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
