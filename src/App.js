@@ -122,6 +122,7 @@ const AlbumsList = () => {
       .map(album => <List.Item key={album.id}>
         <NavLink to={`/albums/${album.id}`}>{album.name}</NavLink>
       </List.Item>);
+      
   }
 
   return (
@@ -193,11 +194,8 @@ const AlbumDetails = (props) => {
   return (
     
     <Segment>
-      <img src={beatme}/>   
-      <Blur className='blur-demo' img={beatme} blurRadius={5}>
-                    BLUR RADIUS: {5}px
-                </Blur>
-      <div className="game"> add me</div>
+      <Blur className='blur-demo' img={beatme} blurRadius={5}></Blur>
+      <div className="game"></div>
       <Header as='h3'>{album.name}</Header>
       <S3ImageUpload albumId={album.id} />
       <PhotosList photos={photos} />
@@ -273,7 +271,7 @@ const PhotosList = React.memo((props) => {
     return props.photos.map(photo =>
       <S3Image 
         key={photo.thumbnail.key} 
-        imgKey={'fullsize/' + photo.thumbnail.key.replace(/.+resized\//, '')}
+        imgKey={'resized/' + photo.thumbnail.key.replace(/.+resized\//, '')}
         level="private"
         style={{display: 'inline-block', 'paddingRight': '5px'}}
       />
@@ -299,8 +297,8 @@ function App() {
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/info">Info</NavLink></li>
             <li><NavLink to="/aboutGame ">about Game </NavLink></li>
-            <li><NavLink to="/NewAlbum">NewAlbum</NavLink></li>
-            <li><NavLink to="/AlbumsList">AlbumsList</NavLink></li>
+            <li><NavLink to="/NewAlbum">Add album</NavLink></li>
+            <li><NavLink to="/AlbumsList">List games</NavLink></li>
           <li><NavLink to="/demoGame">DemoGame</NavLink></li>
           <li><NavLink to="/setPassword">Set Paswword</NavLink></li>
           </ul>
